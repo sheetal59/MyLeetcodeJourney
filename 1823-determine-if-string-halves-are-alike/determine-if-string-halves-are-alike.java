@@ -22,6 +22,6 @@ class Solution {
                 return false;
             }
         }
-        return count ==0;
+        return count==0;
     }
 }
