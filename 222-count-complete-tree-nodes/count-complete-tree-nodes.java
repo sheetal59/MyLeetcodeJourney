@@ -18,8 +18,9 @@ class Solution {
         if(root==null){
             return 0;
         }
-        int leftNodes = countNodes(root.left);
-        int rightNodes = countNodes(root.right);
-        return leftNodes + rightNodes +1;
+        int leftCount = countNodes(root.left);
+        int rightCount = countNodes(root.right);
+
+        return leftCount + rightCount +1;
     }
 }
