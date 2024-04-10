@@ -1,12 +1,13 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-    HashSet<Integer> seen = new HashSet<>();
-    for (int num : nums) {
-        if (seen.contains(num)) {
-            return num;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<nums.length; i++){
+            if(map.containsKey(nums[i])){
+               return nums[i];
+            }
+             map.put(nums[i], map.getOrDefault(nums[i],0)+1);
         }
-        seen.add(num);
+        return -1;
+        
     }
-    return -1;  // Just to satisfy the compiler, this should never be reached
-}
 }
