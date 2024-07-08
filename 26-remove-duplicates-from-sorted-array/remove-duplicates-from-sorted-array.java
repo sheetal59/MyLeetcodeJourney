@@ -5,7 +5,8 @@ class Solution {
         for(int j=0; j<nums.length; j++){
             if(set.contains(nums[j])){
                 continue;
-            }else{
+            }
+            else{
                 set.add(nums[j]);
                 nums[i++] = nums[j];
             }
