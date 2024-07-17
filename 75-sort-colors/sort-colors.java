@@ -8,13 +8,16 @@ class Solution {
         for(int i=0; i<nums.length; i++){
             count[nums[i]]++;
         }
-        int j=0;
-        for(int i=0; i<count.length; i++){
-            while(count[i]>0){
-                nums[j]=i;
-                j++;
-                count[i]--;
-            }
+        for(int i=1; i<=largest; i++){
+            count[i] +=count[i-1];
         }
+        int output[] = new int[nums.length];
+        for(int i=nums.length-1; i>=0; i--){
+            output[--count[nums[i]]] = nums[i];
+        }
+        for(int i=0; i<nums.length; i++){
+            nums[i] = output[i];
+        }
+       
     }
 }
