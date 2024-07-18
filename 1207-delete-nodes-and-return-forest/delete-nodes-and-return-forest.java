@@ -14,20 +14,42 @@
  * }
  */
 class Solution {
-    private boolean[] set = new boolean[1001];
-    private List<TreeNode> res;
-    private TreeNode dfs(TreeNode root, boolean flag){
-        if (root == null) return root;
-        root.left = dfs(root.left, set[root.val]);
-        root.right = dfs(root.right, set[root.val]);
-        if (!set[root.val] && flag) res.add(root);
-        return set[root.val] ? null : root;
-    }
     public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
-        res = new ArrayList<>();
-        for (int n : to_delete)
-            set[n] = true;
-        dfs(root, true);
-        return res;
+        Map<Integer, TreeNode> res = new HashMap<>();
+        Set<Integer> to_delete_set = new HashSet<>();
+        for (int val : to_delete) {
+            to_delete_set.add(val);
+        }
+        res.put(root.val, root);
+
+        recursion(null, root, false, res, to_delete_set);
+
+        return new ArrayList<>(res.values());
+    }
+
+    private void recursion(TreeNode parent, TreeNode cur_node, boolean isleft, Map<Integer, TreeNode> res, Set<Integer> to_delete_set) {
+        if (cur_node == null) return;
+
+        recursion(cur_node, cur_node.left, true, res, to_delete_set);
+        recursion(cur_node, cur_node.right, false, res, to_delete_set);
+
+        if (to_delete_set.contains(cur_node.val)) {
+            res.remove(cur_node.val);
+
+            if (parent != null) {
+                if (isleft) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            }
+
+            if (cur_node.left != null) {
+                res.put(cur_node.left.val, cur_node.left);
+            }
+            if (cur_node.right != null) {
+                res.put(cur_node.right.val, cur_node.right);
+            }
+        }
     }
 }
